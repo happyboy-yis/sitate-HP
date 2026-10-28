@@ -30,7 +30,23 @@ jobs:
           enablement: true
       - run: npm run build
         env:
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          BASE_PATH: /sitate-HP
+      - name: Verify project site paths
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import { readFile, stat } from 'node:fs/promises';
+          for (const route of ['index.html', 'alien/index.html', 'editorial/index.html']) {
+            const html = await readFile('dist/' + route, 'utf8');
+            assert.ok(html.includes('href="/sitate-HP/assets/css/style.css"'));
+            for (const [, path] of html.matchAll(/(?:src|href)="(\/[^"#]+)"/g)) {
+              assert.ok(path.startsWith('/sitate-HP/'), path);
+              await stat('dist/' + path.slice('/sitate-HP/'.length));
+            }
+          }
+          const works = await readFile('dist/assets/js/works.js', 'utf8');
+          assert.ok(works.includes('/sitate-HP/assets/images/work-01.webp'));
+          JS
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
