@@ -1,0 +1,12 @@
+import { works } from './works.js';
+import { workButton, contactForm } from './shared.js';
+const ordered=[works[0],works[1],works[3],works[4],works[2],works[5],works[6],works[7]];
+document.querySelector('.editorial-works-list').innerHTML=ordered.map((w,i)=>`<article class="editorial-work work-${i+1} reveal">${workButton(w)}${[0,3,6].includes(i)?`<p class="editorial-work-note">${['BEYOND THE<br>FAMILIAR.','A DIFFERENT<br>KIND OF SOFT.','BEAUTY HAS<br>NO SINGLE FORM.'][[0,3,6].indexOf(i)]}</p>`:''}</article>`).join('');
+document.querySelector('#editorial-contact-form').innerHTML=contactForm('editorial');
+const panel=document.querySelector('#editorial-index'),trigger=document.querySelector('.index-trigger');
+trigger.onclick=()=>{panel.showModal();trigger.setAttribute('aria-expanded','true');document.body.classList.add('modal-open');};
+panel.querySelector('.index-close').onclick=()=>panel.close();
+panel.addEventListener('click',e=>{if(e.target===panel)panel.close();if(e.target.closest('a'))panel.close();});
+panel.addEventListener('close',()=>{trigger.setAttribute('aria-expanded','false');document.body.classList.remove('modal-open');});
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));

@@ -1,0 +1,16 @@
+{
+  "name": "moe-shitate-design-study",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 5173 --bind 0.0.0.0",
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/build.test.mjs",
+    "test:e2e": "node tests/browser.cjs",
+    "preview": "python3 -m http.server 5173 --bind 0.0.0.0 --directory dist"
+  },
+  "devDependencies": {
+    "playwright-core": "1.57.0"
+  }
+}
