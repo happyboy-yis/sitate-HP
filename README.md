@@ -37,9 +37,11 @@ E2Eは375 / 390 / 430 / 768 / 1440pxの3ページを確認。画像読み込み�
 
 ## 公開について
 
-Netlifyは使用しません。`npm run build`で生成する`dist/`が、静的ホスティングへアップロードできる公開用ファイルです。公開先のSite機能が利用可能になったら、このフォルダを公開してください。
+GitHub Pagesへ公開します。`main`へのプッシュで`.github/workflows/pages.yml`がテスト・ビルド・デプロイを実行します。リポジトリのSettings → PagesではSourceをGitHub Actionsに設定してください。初回のPages有効化に管理者権限が必要な場合があります。
 
-このセッションにはSite公開ツールが接続されていないため、公開HTTPS URLの発行は未実施です。GitHubへのプッシュだけではサイトは公開されません。`noindex`は検索除外の指示でありアクセス制御ではありません。
+公開先は通常 `https://happyboy-yis.github.io/sitate-HP/` です。公開ビルドはPages設定のベースパスを使い、画像と内部リンクもその配下に配置します。ローカルで同じ成果物を作る場合は `BASE_PATH=/sitate-HP npm run build` を実行します。通常の `npm run build` はルート配信用です。
+
+`noindex`は検索除外の指示でありアクセス制御ではありません。
 
 ## 差し替える場所
 
